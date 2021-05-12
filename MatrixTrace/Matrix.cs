@@ -41,30 +41,9 @@ namespace MatrixTrace
             int rows = matrix.GetLength(0);
             int columns = matrix.GetLength(1);
             int sum = 0;
-            if (rows == columns)
-            {
-                for (int i = 0; i < rows; i++)
-                {
-                    sum += matrix[i, i];
-                }
-            }
-            else
-            {
-                for (int i = 0, j = 0; i < rows && j < columns; i++, j++)
-                {
-                    sum += matrix[i, j];
-                    if (j == columns - 1)
-                    {
-                        break;
-                    }
 
-                    sum += matrix[i + 1, j];
-                    if (i + 1 == rows - 1)
-                    {
-                        break;
-                    }
-                }
-            }
+            for (int i = 0, j = 0; i < rows && j < columns; i++, j++)
+                sum += matrix[i, j];
 
             return sum;
         }
@@ -75,31 +54,14 @@ namespace MatrixTrace
 
             int rows = matrix.GetLength(0);
             int columns = matrix.GetLength(1);
-            bool isBorder = false;
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    if (rows == columns)
-                    {
-                        if (i == j)
-                            Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write($"{matrix[i, j] + " ",3}");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        if ((i == j || i - 1 == j) && !isBorder)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-
-                            if (i == rows - 1 || j == columns - 1)
-                                isBorder = true;
-                        }
-
-                        Console.Write($"{matrix[i, j] + " ",3}");
-                        Console.ResetColor();
-                    }
+                    if (i == j)
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"{matrix[i, j] + " ",3}");
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
             }

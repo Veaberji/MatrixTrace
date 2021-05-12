@@ -48,7 +48,7 @@ namespace MatrixTraceTests
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
             };
-            int expected = 22;
+            int expected = 18;
 
             int result = Matrix.Trace(matrix);
 
@@ -65,7 +65,7 @@ namespace MatrixTraceTests
                 {9, 10, 11},
                 {13, 14, 15},
             };
-            int expected = 33;
+            int expected = 18;
 
             int result = Matrix.Trace(matrix);
 

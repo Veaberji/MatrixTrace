@@ -24,19 +24,19 @@ namespace MatrixTraceTests
         }
 
         [Test]
-        public void RowsAndColumns_RowsLessThan2_ThrowArgumentException()
+        public void RowsAndColumns_RowsLessThan1_ThrowArgumentException()
         {
-            int rows = 1;
+            int rows = 0;
             int columns = 2;
 
             Assert.That(() => MatrixTrace.Check.RowsAndColumns(rows, columns), Throws.ArgumentException);
         }
 
         [Test]
-        public void RowsAndColumns_ColumnsLessThan2_ThrowArgumentException()
+        public void RowsAndColumns_ColumnsLessThan1_ThrowArgumentException()
         {
             int rows = 2;
-            int columns = 1;
+            int columns = 0;
 
             Assert.That(() => MatrixTrace.Check.RowsAndColumns(rows, columns), Throws.ArgumentException);
         }
@@ -51,25 +51,17 @@ namespace MatrixTraceTests
         }
 
         [Test]
-        public void MatrixInput_RowsLessThan2_ThrowArgumentException()
+        public void MatrixInput_RowsLessThan1_ThrowArgumentException()
         {
-            int[,] matrix =
-            {
-                {1, 2, 3}
-            };
+            var matrix = new int[0, 1];
 
             Assert.That(() => MatrixTrace.Check.MatrixInput(matrix), Throws.ArgumentException);
         }
 
         [Test]
-        public void MatrixInput_ColumnsLessThan2_ThrowArgumentException()
+        public void MatrixInput_ColumnsLessThan1_ThrowArgumentException()
         {
-            int[,] matrix =
-            {
-                {1},
-                {2},
-                {3},
-            };
+            var matrix = new int[1, 0];
 
             Assert.That(() => MatrixTrace.Check.MatrixInput(matrix), Throws.ArgumentException);
         }
