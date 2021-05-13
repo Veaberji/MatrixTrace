@@ -6,14 +6,14 @@ namespace MatrixTraceTests
     class СheckTests
     {
         [Test]
-        public void Input_InputNotANumber_ThrowArgumentException()
+        public void ConsoleInput_InputNotANumber_ThrowArgumentException()
         {
             string input = "abc";
 
             Assert.That(() => MatrixTrace.Check.ConsoleInput(input), Throws.ArgumentException);
         }
         [Test]
-        public void Input_InputIsANumber_ReturnInputAsInteger()
+        public void ConsoleInput_InputIsANumber_ReturnInputAsInteger()
         {
             string input = " 5 ";
             int expected = 5;
@@ -45,25 +45,8 @@ namespace MatrixTraceTests
         [Test]
         public void MatrixInput_ArgumentIsNull_ThrowArgumentException()
         {
-            int[,] matrix = null;
-
-            Assert.That(() => MatrixTrace.Check.MatrixInput(matrix), Throws.ArgumentNullException);
+            Assert.That(() => MatrixTrace.Check.MatrixInput(null), Throws.ArgumentNullException);
         }
 
-        [Test]
-        public void MatrixInput_RowsLessThan1_ThrowArgumentException()
-        {
-            var matrix = new int[0, 1];
-
-            Assert.That(() => MatrixTrace.Check.MatrixInput(matrix), Throws.ArgumentException);
-        }
-
-        [Test]
-        public void MatrixInput_ColumnsLessThan1_ThrowArgumentException()
-        {
-            var matrix = new int[1, 0];
-
-            Assert.That(() => MatrixTrace.Check.MatrixInput(matrix), Throws.ArgumentException);
-        }
     }
 }

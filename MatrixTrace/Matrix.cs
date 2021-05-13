@@ -3,29 +3,52 @@ using System.Collections.Generic;
 
 namespace MatrixTrace
 {
-    public class Matrix
+    public interface IMatrix
     {
-        public int Rows { get; }
-        public int Columns { get; }
-        public int[,] Data { get; }
+        int GetSize(int dimension);
+        int[,] FillMatrix();
+        int Trace();
+        List<int> Snake();
+    }
+
+    public class Matrix : IMatrix
+    {
+        private int _rows { get; }
+        private int _columns { get; }
+        private int[,] _data { get; }
+
+        public int this[int index1, int index2] => _data[index1, index2];
 
         public Matrix(int rows, int columns)
         {
-            Rows = rows;
-            Columns = columns;
-            Data = Create(Rows, Columns);
+            _rows = rows;
+            _columns = columns;
+            _data = FillMatrix();
         }
 
-        public static int[,] Create(int rows, int columns)
+        public int GetSize(int dimension)
         {
-            Check.RowsAndColumns(rows, columns);
+            switch (dimension)
+            {
+                case 0:
+                    return _rows;
+                case 1:
+                    return _columns;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public int[,] FillMatrix()
+        {
+            Check.RowsAndColumns(_rows, _columns);
 
             var rand = new Random();
-            var matrix = new int[rows, columns];
+            var matrix = new int[_rows, _columns];
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < _rows; i++)
             {
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < _columns; j++)
                 {
                     matrix[i, j] = rand.Next(101);
                 }
@@ -34,69 +57,45 @@ namespace MatrixTrace
             return matrix;
         }
 
-        public static int Trace(int[,] matrix)
+        public int Trace()
         {
-            Check.MatrixInput(matrix);
 
-            int rows = matrix.GetLength(0);
-            int columns = matrix.GetLength(1);
+            int minDimension = Math.Min(_rows, _columns);
             int sum = 0;
 
-            for (int i = 0, j = 0; i < rows && j < columns; i++, j++)
-                sum += matrix[i, j];
+            for (int i = 0; i < minDimension; i++)
+                sum += _data[i, i];
 
             return sum;
         }
 
-        public static void Output(int[,] matrix)
+        public List<int> Snake()
         {
-            Check.MatrixInput(matrix);
 
-            int rows = matrix.GetLength(0);
-            int columns = matrix.GetLength(1);
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    if (i == j)
-                        Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($"{matrix[i, j] + " ",3}");
-                    Console.ResetColor();
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public static List<int> Snake(int[,] matrix)
-        {
-            Check.MatrixInput(matrix);
-
-            int rows = matrix.GetLength(0);
-            int columns = matrix.GetLength(1);
-            int length = columns * rows;
-            var numbers = new List<int>();
+            int length = _rows * _columns;
             int lowRow = 0;
-            int highRow = rows - 1;
+            int highRow = _rows - 1;
             int lowColumn = 0;
-            int highColumn = columns - 1;
+            int highColumn = _columns - 1;
+            var numbers = new List<int>();
 
             while (numbers.Count < length)
             {
 
                 for (int j = lowColumn; j <= highColumn && lowRow <= highRow; j++)
-                    numbers.Add(matrix[lowRow, j]);
+                    numbers.Add(_data[lowRow, j]);
                 lowRow++;
 
                 for (int i = lowRow; i <= highRow && lowColumn <= highColumn; i++)
-                    numbers.Add(matrix[i, highColumn]);
+                    numbers.Add(_data[i, highColumn]);
                 highColumn--;
 
                 for (int j = highColumn; j >= lowColumn && lowRow <= highRow; j--)
-                    numbers.Add(matrix[highRow, j]);
+                    numbers.Add(_data[highRow, j]);
                 highRow--;
 
                 for (int i = highRow; i >= lowRow && lowColumn <= highColumn; i--)
-                    numbers.Add(matrix[i, lowColumn]);
+                    numbers.Add(_data[i, lowColumn]);
                 lowColumn++;
 
             }

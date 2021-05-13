@@ -22,13 +22,10 @@ namespace MatrixTrace
                     $"Error: 'rows and columns' must be the numbers not less than 1");
         }
 
-        public static void MatrixInput(int[,] matrix)
+        public static void MatrixInput(Matrix matrix)
         {
             if (matrix == null)
                 throw new ArgumentNullException("'matrix' can`t be null");
-
-            if (matrix.GetLength(0) < 1 || matrix.GetLength(1) < 1)
-                throw new ArgumentException($"Error: 'matrix' must be at least 1x1");
         }
     }
 }

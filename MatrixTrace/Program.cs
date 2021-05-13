@@ -15,11 +15,14 @@ namespace MatrixTrace
                 input = Console.ReadLine();
                 int columns = Check.ConsoleInput(input);
                 var matrix = new Matrix(rows, columns);
-                Console.WriteLine($"Matrix trace: {Matrix.Trace(matrix.Data)}");
+                Console.WriteLine($"Matrix trace: {matrix.Trace()}");
                 Console.WriteLine("Matrix:");
-                Matrix.Output(matrix.Data);
+
+                var output = new Output();
+                output.Matrix(matrix);
+
                 Console.WriteLine("The snake traversal of the matrix:");
-                Console.WriteLine(string.Join(", ", Matrix.Snake(matrix.Data)));
+                Console.WriteLine(string.Join(", ", matrix.Snake()));
             }
             catch (Exception e)
             {
