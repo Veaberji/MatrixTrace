@@ -22,10 +22,16 @@ namespace MatrixTrace
                     $"Error: 'rows and columns' must be the numbers not less than 1");
         }
 
-        public static void MatrixInput(Matrix matrix)
+        public static void MatrixInput(IMatrix matrix)
         {
             if (matrix == null)
-                throw new ArgumentNullException("'matrix' can`t be null");
+                throw new ArgumentNullException("Error: 'matrix' can`t be null");
+        }
+
+        public static void ArrayInput(int[,] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException("Error: 'array' can`t be null");
         }
     }
 }

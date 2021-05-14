@@ -4,12 +4,12 @@ namespace MatrixTrace
 {
     public class Output
     {
-        public void Matrix(Matrix matrix)
+        public static void Matrix(Matrix matrix)
         {
             Check.MatrixInput(matrix);
 
-            int rows = matrix.GetSize(0);
-            int columns = matrix.GetSize(1);
+            int rows = matrix.GetSize(MatrixSize.Rows);
+            int columns = matrix.GetSize(MatrixSize.Columns);
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)

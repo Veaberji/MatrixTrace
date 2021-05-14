@@ -3,14 +3,6 @@ using System.Collections.Generic;
 
 namespace MatrixTrace
 {
-    public interface IMatrix
-    {
-        int GetSize(int dimension);
-        int[,] FillMatrix();
-        int Trace();
-        List<int> Snake();
-    }
-
     public class Matrix : IMatrix
     {
         private int _rows { get; }
@@ -26,17 +18,27 @@ namespace MatrixTrace
             _data = FillMatrix();
         }
 
-        public int GetSize(int dimension)
+        public Matrix(int[,] array)
         {
-            switch (dimension)
+            Check.ArrayInput(array);
+            _rows = array.GetLength(0);
+            _columns = array.GetLength(1);
+            Check.RowsAndColumns(_rows, _columns);
+            _data = array;
+        }
+
+        public int GetSize(MatrixSize size)
+        {
+            switch (size)
             {
-                case 0:
+                case MatrixSize.Rows:
                     return _rows;
-                case 1:
+                case MatrixSize.Columns:
                     return _columns;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
         }
 
         public int[,] FillMatrix()

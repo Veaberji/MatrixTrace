@@ -3,7 +3,7 @@
 namespace MatrixTraceTests
 {
     [TestFixture]
-    class СheckTests
+    class CheckTests
     {
         [Test]
         public void ConsoleInput_InputNotANumber_ThrowArgumentException()
@@ -12,6 +12,7 @@ namespace MatrixTraceTests
 
             Assert.That(() => MatrixTrace.Check.ConsoleInput(input), Throws.ArgumentException);
         }
+
         [Test]
         public void ConsoleInput_InputIsANumber_ReturnInputAsInteger()
         {
@@ -48,5 +49,10 @@ namespace MatrixTraceTests
             Assert.That(() => MatrixTrace.Check.MatrixInput(null), Throws.ArgumentNullException);
         }
 
+        [Test]
+        public void ArrayInput_ArgumentIsNull_ThrowArgumentException()
+        {
+            Assert.That(() => MatrixTrace.Check.ArrayInput(null), Throws.ArgumentNullException);
+        }
     }
 }
